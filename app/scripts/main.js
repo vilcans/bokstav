@@ -44,8 +44,7 @@ function create() {
         }
         console.log('Collided, this=', this);
         console.log('and args=', arguments);
-        //map.removeTile(tile.x, tile.y);
-        map.putTile(1, tile.x, tile.y);
+        map.removeTile(tile.x, tile.y);
     });
 
     layer = map.createLayer('Tile Layer 1');
