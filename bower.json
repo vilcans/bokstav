@@ -2,7 +2,8 @@
   "name": "bokstav",
   "private": true,
   "dependencies": {
-    "jquery": "~1.11.0"
+    "jquery": "~1.11.0",
+    "phaser": "~2.0.2"
   },
   "devDependencies": {}
 }
