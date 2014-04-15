@@ -1,4 +1,4 @@
-/* global: Phaser */
+/* global Phaser */
 
 var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
@@ -37,7 +37,16 @@ function create() {
 
     map.addTilesetImage('tiles-1');
 
-    map.setCollisionByExclusion([ 13, 14, 15, 16, 46, 47, 48, 49, 50, 51 ]);
+    map.setCollisionByExclusion([ 1, 2, 4 ]);
+    map.setTileIndexCallback(2, function(sprite, tile) {
+        if (sprite !== player) {
+            return;
+        }
+        console.log('Collided, this=', this);
+        console.log('and args=', arguments);
+        //map.removeTile(tile.x, tile.y);
+        map.putTile(1, tile.x, tile.y);
+    });
 
     layer = map.createLayer('Tile Layer 1');
 
