@@ -59,7 +59,7 @@ function create() {
 
     layer.resizeWorld();
 
-    game.physics.arcade.gravity.y = 200;
+    game.physics.arcade.gravity.y = 400;
 
     player = game.add.sprite(32, 32, 'dude');
     game.physics.enable(player, Phaser.Physics.ARCADE);
@@ -126,7 +126,7 @@ function update() {
     
     if (jumpButton.isDown && player.body.onFloor() && game.time.now > jumpTimer)
     {
-        player.body.velocity.y = -250;
+        player.body.velocity.y = -350;
         jumpTimer = game.time.now + 750;
     }
 
