@@ -100,4 +100,4 @@ gameStates =
         #game.debug.body(player)
         game.debug.bodyInfo(player, 16, 24)
 
-game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', gameStates)
+game = new Phaser.Game(800, 600, Phaser.AUTO, 'phaser-example', gameStates)
