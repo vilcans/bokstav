@@ -37,8 +37,13 @@ function create() {
 
     map.addTilesetImage('tiles-1');
 
-    map.setCollisionByExclusion([ 1, 2, 4 ]);
-    map.setTileIndexCallback(2, function(sprite, tile) {
+    //map.setCollisionByExclusion([ 14 ]);
+    map.setCollision(14);
+    map.setTileIndexCallback([
+             1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11,
+            17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+            32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42
+        ], function(sprite, tile) {
         if (sprite !== player) {
             return;
         }
@@ -54,7 +59,7 @@ function create() {
 
     layer.resizeWorld();
 
-    game.physics.arcade.gravity.y = 250;
+    game.physics.arcade.gravity.y = 200;
 
     player = game.add.sprite(32, 32, 'dude');
     game.physics.enable(player, Phaser.Physics.ARCADE);
