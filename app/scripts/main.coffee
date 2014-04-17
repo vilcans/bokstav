@@ -3,7 +3,7 @@ tileset = null
 layer = null
 player = null
 facing = 'left'
-jumpTimer = 0
+startJumpTime = 0
 cursors = null
 jumpButton = null
 bg = null
@@ -48,7 +48,7 @@ gameStates =
 
         layer.resizeWorld()
 
-        game.physics.arcade.gravity.y = 400
+        game.physics.arcade.gravity.y = 450
 
         player = game.add.sprite(32, 32, 'dude')
         game.physics.enable(player, Phaser.Physics.ARCADE)
@@ -90,10 +90,14 @@ gameStates =
                     player.frame = 5
 
                 facing = 'idle'
-        
-        if jumpButton.isDown and player.body.onFloor() and game.time.now > jumpTimer
-            player.body.velocity.y = -350
-            jumpTimer = game.time.now + 750
+
+        if jumpButton.isDown
+            if player.body.onFloor() and game.time.now > startJumpTime + 750
+                player.body.velocity.y = -230
+                startJumpTime = game.time.now
+            else if game.time.now < startJumpTime + 350
+                # still keeping jump button pressed
+                player.body.velocity.y = -230
 
     render: ->
         #game.debug.text(game.time.physicsElapsed, 32, 32)
