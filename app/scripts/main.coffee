@@ -1,3 +1,16 @@
+# CONSTANTS
+maxHorizontalSpeed = 200
+walkAcceleration = 180
+
+# When moving in the wrong direction, only turn
+# the sprite when speed is lower than this
+maxTurnSpeed = 70
+
+# Max speed in the wrong direction
+maxWrongWaySpeed = 90
+
+#################
+
 map = null
 tileset = null
 layer = null
@@ -53,9 +66,11 @@ gameStates =
         player = game.add.sprite(32, 32, 'dude')
         game.physics.enable(player, Phaser.Physics.ARCADE)
 
+        player.body.maxVelocity.x = maxHorizontalSpeed
         player.body.bounce.y = 0.2
         player.body.collideWorldBounds = true
         player.body.setSize(20, 32, 5, 16)
+        player.body.drag.set(1000, 0)
 
         player.animations.add('left', [0, 1, 2, 3], 10, true)
         player.animations.add('turn', [4], 20, true)
@@ -69,16 +84,20 @@ gameStates =
     update: ->
         game.physics.arcade.collide(player, layer)
 
-        player.body.velocity.x = 0
+        player.body.acceleration.x = 0
 
         if cursors.left.isDown
-            player.body.velocity.x = -150
-            if facing != 'left'
+            player.body.acceleration.x = -walkAcceleration
+            if player.body.velocity.x > maxWrongWaySpeed
+                player.body.velocity.x = maxWrongWaySpeed
+            if facing != 'left' and player.body.velocity.x < maxTurnSpeed
                 player.animations.play('left')
                 facing = 'left'
         else if cursors.right.isDown
-            player.body.velocity.x = 150
-            if facing != 'right'
+            player.body.acceleration.x = walkAcceleration
+            if player.body.velocity.x < -maxWrongWaySpeed
+                player.body.velocity.x = -maxWrongWaySpeed
+            if facing != 'right' and player.body.velocity.x > -maxTurnSpeed
                 player.animations.play('right')
                 facing = 'right'
         else
